@@ -17,7 +17,7 @@ class WishController extends AbstractController
     public function list(WishRepository $wishRepository): Response
     {
         //aller en bdd chercher tous les whishes
-        $wishes = $wishRepository->findBy([], ["date_created" => "ASC"], null, 0);
+        $wishes = $wishRepository->findBy([], ["date_created" => "DESC"], null, 0);
         return $this->render('wish/list.html.twig', ["wishes" => $wishes]);
     }
 
