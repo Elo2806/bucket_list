@@ -31,7 +31,7 @@
 
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
-                        <a href="{{ path('main_us') }}" class="navbar-item">
+                        <a href="{{ path('main_about_us') }}" class="navbar-item">
                             About Us
                         </a>
 
@@ -47,7 +47,7 @@
                                 <a class="navbar-item">
                                     ...de courses
                                 </a>
-                                <a class="navbar-item">
+                                <a href="{{ path('wish_add') }}" class="navbar-item">
                                     ...de wishes
                                 </a>
                                 <hr class="navbar-divider">
@@ -80,7 +80,7 @@
             </div>
         </main>
     </body>
-    <footer>
+    <footer class="section">
         <div class="container">
             </p>&copy;BucketList {{'now'|date('Y') }}</p>
         </div>

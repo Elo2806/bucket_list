@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Nom du souhait {{ id }}</h1>
-    <p>Les détails du souhait {{ id }}</p>
+    <h1>{{ wish.title }}</h1>
+    {% if wish.description %}
+        <h2>Les détails du souhait :</h2>
+        <p>{{ wish.description }}</p>
+    {% endif %}
+    <p>Souhait créé par {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}</p>
 {% endblock %}
 
 {% block title %}
-    Souhait {{ id }}
+    Souhait {{ wish.id }}
 {% endblock %}
 

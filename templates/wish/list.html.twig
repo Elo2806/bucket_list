@@ -5,10 +5,8 @@
 {% block body %}
     <h1>Tous les souhaits existants chez nous :</h1>
     <ol>
-        <li><a href="{{ path('wish_detail', {'id': '1'}) }}"> le souhait 1 </a></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        {% for wish in wishes %}
+        <li><a href="{{ path('wish_detail', {'id': wish.id}) }}"> {{ wish.title }} </a></li>
+        {% endfor %}
     </ol>
 {% endblock %}

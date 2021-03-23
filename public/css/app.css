@@ -2,3 +2,8 @@ main {
     font-family: 'Syne Mono', monospace;
 }
 
+footer{
+    position: absolute;
+    bottom: 0;
+}
+
