@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "SyneMono";
+    src: url("/public/fonts/SyneMono-Regular.ttf");
+}
+
+main{
+    font-family: "SyneMono", Gabriola;
+}
+
