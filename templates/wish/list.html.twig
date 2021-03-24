@@ -7,6 +7,8 @@
     <ol>
         {% for wish in wishes %}
         <li><a href="{{ path('wish_detail', {'id': wish.id}) }}"> {{ wish.title }} </a></li>
+        {% else %}
+            <div>Rien à proposer !</div>
         {% endfor %}
     </ol>
 {% endblock %}
