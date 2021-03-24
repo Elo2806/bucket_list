@@ -17,7 +17,7 @@ class WishController extends AbstractController
     public function list(WishRepository $wishRepository): Response
     {
         //aller en bdd chercher tous les whishes
-        $wishes = $wishRepository->findBy(["is_published" => true], ["date_created" => "DESC"], null, 0);
+        $wishes = $wishRepository->findBy(["is_published" => true], ["date_created" => "DESC"], 20, 0);
         return $this->render('wish/list.html.twig', ["wishes" => $wishes]);
     }
 
@@ -31,26 +31,5 @@ class WishController extends AbstractController
         return $this->render('wish/detail.html.twig', ["wish"=>$wish]);
     }
 
-    /**
-     * @Route ("/add-wish", name="wish_add")
-     */
-    public function add(EntityManagerInterface $entityManager){
 
-        //instanciation d'un nouveau souhait
-        $wish = new Wish();
-
-        //Hydrate toutes les propriétés (donne une valeur)
-        $wish->setTitle("Aller en Australie");
-        $wish->setAuthor("Gaston");
-        $wish->setDateCreated(new \DateTime());
-        $wish->setDescription("Voir un kangourou bla blla lbla bla bla bla, blaaaaa");
-
-        //On sauvegarde
-        $entityManager->persist($wish);
-
-        //Et on exécute la requête
-        $entityManager->flush();
-
-        die();
-    }
 }
