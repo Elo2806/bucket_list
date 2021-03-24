@@ -2,4 +2,18 @@ main {
     font-family: 'Syne Mono', monospace;
 }
 
+label{
+    display: block;
+}
 
+label+ul li{
+    color: red;
+}
+
+.flash{
+    margin: 10px;
+    padding: 40px;
+    background-color: mediumspringgreen;
+    font-family: fantasy;
+    border-radius: 20px;
+}

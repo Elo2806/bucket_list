@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
             $wish->setAuthor($faker->userName);
             $wish->setIsPublished($faker->boolean(90)); //90% qui seront true
             $wish->setDateCreated($faker->dateTimeBetween('- 2years')); //entre il y a 2 ans et now
+            $wish->setLikes($faker->numberBetween(0, 250));
 
             //Demander à Doctrine d'enregistrer mon objet
             $manager->persist($wish);

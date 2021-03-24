@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\WishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WishRepository::class)
+ * @UniqueEntity(fields={"title"}, message="Souhait déjà existant")
  */
 class Wish
 {
@@ -18,6 +21,7 @@ class Wish
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Veuillez entrer un souhait")
      * @ORM\Column(type="string", length=250)
      */
     private $title;
@@ -33,6 +37,7 @@ class Wish
     private $is_published;
 
     /**
+     * @Assert\NotBlank (message="Veuillez-vous identifier")
      * @ORM\Column(type="string", length=50)
      */
     private $author;
@@ -41,6 +46,11 @@ class Wish
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_created;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $likes;
 
     public function getId(): ?int
     {
@@ -103,6 +113,18 @@ class Wish
     public function setDateCreated(?\DateTimeInterface $date_created): self
     {
         $this->date_created = $date_created;
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): self
+    {
+        $this->likes = $likes;
 
         return $this;
     }

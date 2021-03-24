@@ -3,12 +3,21 @@
 {% block title %}Wishes{% endblock %}
 
 {% block body %}
-    <h1>Tous les souhaits existants chez nous :</h1>
-    <ol>
+    <h1>Tous les souhaits existants chez nous (page #{{ currentPage }}) :</h1>
+
+    {% if (currentPage > 1) %}
+    <a href="{{ path('wish_list', {'page': currentPage-1}) }}">Page précédente</a>
+    {% endif %}
+
+    {% if ((currentPage * 20) < totalResultCount) %}
+    <a href="{{ path('wish_list', {'page': currentPage+1}) }}">Page suivante</a>
+    {% endif %}
+
+    <ul>
         {% for wish in wishes %}
-        <li><a href="{{ path('wish_detail', {'id': wish.id}) }}"> {{ wish.title }} </a></li>
+        <li><a href="{{ path('wish_detail', {id: wish.id}) }}"> {{ wish.title }} </a></li>
         {% else %}
             <div>Rien à proposer !</div>
         {% endfor %}
-    </ol>
+    </ul>
 {% endblock %}

@@ -47,7 +47,7 @@
                                 <a class="navbar-item">
                                     ...de courses
                                 </a>
-                                <a href="{{ path('wish_add') }}" class="navbar-item">
+                                <a href="{{ path('wish_create') }}" class="navbar-item">
                                     ...de wishes
                                 </a>
                                 <hr class="navbar-divider">
@@ -73,6 +73,16 @@
                 </div>
             </nav>
         </header>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="container">
+                    <div class="flash flash-{{ label }}">
+                        <strong>{{ message }}</strong>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
 
         <main class="section">
             <div class="container">
