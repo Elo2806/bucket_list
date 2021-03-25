@@ -19,7 +19,7 @@ class WishType extends AbstractType
                                                         'required' => false])
             ->add('description', TextareaType::class, ['required' => false])
             ->add('author', TextType::class, ['required' => false])
-            ->add('Souhaiter', SubmitType::class)
+            //->add('Souhaiter', SubmitType::class)
         ;
     }
 

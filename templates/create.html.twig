@@ -2,8 +2,14 @@
 
 {% block body %}
     <div>
-        <h1>Ajouter un souhait</h1>
-        {{ form(wishForm) }}
+        <h1>Ajoutez un souhait !</h1>
+
+        {# form_theme form 'foundation_5_layout.html.twig'#}
+
+        {{ form_start(wishForm) }}
+            {{ form_widget(wishForm) }}
+            <button>Souhaiter !</button>
+        {{ form_end(wishForm) }}
     </div>
 {% endblock %}
 

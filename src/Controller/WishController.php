@@ -43,7 +43,7 @@ class WishController extends AbstractController
     /**
      * @Route ("/wishes/create", name="wish_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, WishRepository $wishRepository){
+    public function create(Request $request, EntityManagerInterface $entityManager){
         $wish = new Wish();
 
         //Créer une instance de la classe formulaire et y associer $wish pour automatiser
@@ -55,7 +55,7 @@ class WishController extends AbstractController
 
         //Si le formulaire est soumis...
         if ($wishForm->isSubmitted() && $wishForm->isValid()){
-            //Hydrater les propriétés encore à null
+            //Hydrater les propriétés encore à null (qui ne sont pas dans le formulaire)
             $wish->setDateCreated(new \DateTime());
             $wish->setIsPublished(true);
             $wish->setLikes(0);
@@ -64,13 +64,10 @@ class WishController extends AbstractController
             $entityManager->persist($wish);
             $entityManager->flush();
 
-            $this->addFlash("success", "Idea sucessfully added - Souhait enregistré, il sera peut-être exaucé !");
+            $this->addFlash('success', "Idea sucessfully added - Souhait enregistré, il sera peut-être exaucé !");
 
-            $newWish = $wishRepository->findOneBy(["title"=>$wish->getTitle()]);
-            dump($newWish);
-            dump($newWish->getId());
             //Redirection
-            return $this->redirectToRoute("wish_detail", ['id' => $newWish->getId()]);
+            return $this->redirectToRoute("wish_detail", ['id' => $wish->getId()]);
 
         }
 
