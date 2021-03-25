@@ -66,7 +66,7 @@ class WishController extends AbstractController
 
             $this->addFlash('success', "Idea sucessfully added - Souhait enregistré, il sera peut-être exaucé !");
 
-            //Redirection
+            //Redirection (l'id a été ajouté par Doctrine dans $wish)
             return $this->redirectToRoute("wish_detail", ['id' => $wish->getId()]);
 
         }

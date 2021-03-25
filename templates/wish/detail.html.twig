@@ -2,6 +2,7 @@
 
 {% block body %}
     <h1>{{ wish.title }}</h1>
+    <p>Dans la catégorie {{ wish.categorie.libelle }}</p>
     {% if wish.description %}
         <h2>Les détails du souhait :</h2>
         <p>{{ wish.description }}</p>
