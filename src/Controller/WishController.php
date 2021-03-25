@@ -35,7 +35,7 @@ class WishController extends AbstractController
     /**
      * @Route ("/wishes/detail/{id}", name="wish_detail")
      */
-    public function detail($id, WishRepository $wishRepository, EntityManagerInterface $entityManager){
+    public function detail($id, Request $request, WishRepository $wishRepository, EntityManagerInterface $entityManager){
 
         //requête à la BDD pour aller chercher les infos de ce wish dont l'id est dans l'url
         $wish = $wishRepository->find($id);
@@ -45,7 +45,6 @@ class WishController extends AbstractController
         //Créer une instance de la classe formulaire et y associer $reaction
         $reacForm = $this->createForm(ReacType::class, $reaction);
         //Injecter les données du form dans $reaction
-        $request = new Request();
         $reacForm->handleRequest($request);
 
         //Si le form est soumis et valide...
@@ -76,7 +75,7 @@ class WishController extends AbstractController
         //Créer une instance de la classe formulaire et y associer $wish
         $reacForm = $this->createForm(ReacType::class, $reaction);
         //Injecter les données du form dans $reaction
-        $request = new Request();
+        //$request = new Request();
         $reacForm->handleRequest($request);
 
         //Si le form est soumis et valide...
