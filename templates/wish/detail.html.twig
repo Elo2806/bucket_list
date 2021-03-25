@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ wish.title }}</h1>
+    <h1><strong>{{ wish.title }}</h1></strong>
     <p>Dans la catégorie {{ wish.categorie.libelle }}</p>
+    <br>
     {% if wish.description %}
-        <h2>Les détails du souhait :</h2>
+        <h2>Les détails du souhait de {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}:</h2>
         <p>{{ wish.description }}</p>
     {% endif %}
-    <p>Souhait créé par {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}</p>
     <br>
     <div>
-        <h1>Donner votre réaction/avis/commentaire :</h1>
+        <h2>Donner votre réaction/avis/commentaire :</h2>
         {{ form_start(reacForm) }}
             {{ form_widget(reacForm) }}
             <br>
@@ -20,7 +20,7 @@
     </div>
     <br>
     <div>
-        <h1>Liste des commentaires sur ce souhait :</h1>
+        <h2>Liste des commentaires sur ce souhait :</h2>
         <br>
 
         {% for reaction in wish.reactions %}

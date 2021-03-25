@@ -46,7 +46,8 @@ class AppFixtures extends Fixture
             $manager->persist($wish);
             $wishes[] = $wish;
         }
-        //Si on voulait aller chercher tous les wish en bdd
+
+        //Si on voulait aller chercher tous les wish en bdd (mais après avoir fait un flush() des wish, sinon ils ne sont pas encore en bdd)
         //$wishRepository = $manager->getRepository(Wish::class);
         //$wishes = $wishRepository->findAll();
         for ($i = 0; $i < 300; $i++){
