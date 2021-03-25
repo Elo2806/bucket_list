@@ -53,7 +53,6 @@ class Wish
     private $likes;
 
     /**
-     * @Assert\NotBlank (message="Choisissez une catégorie svp !")
      * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="wishes")
      * @ORM\JoinColumn(nullable=false)
      */
