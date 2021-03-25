@@ -8,6 +8,31 @@
         <p>{{ wish.description }}</p>
     {% endif %}
     <p>Souhait créé par {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}</p>
+    <br>
+    <div>
+        <h1>Donner votre réaction/avis/commentaire :</h1>
+        {{ form_start(reacForm) }}
+            {{ form_widget(reacForm) }}
+            <br>
+            <button>Réagir !</button>
+        {{ form_end(reacForm) }}
+
+    </div>
+    <br>
+    <div>
+        <h1>Liste des commentaires sur ce souhait :</h1>
+        <br>
+
+        {% for reaction in wish.reactions %}
+            <div>
+                <p>{{ reaction.message }}</p>
+                <p>Par {{ reaction.username }}, le {#  reaction.date_created|date ('d,m,Y H:i') #}</p>
+            </div>
+            <br>
+        {% else %}
+            <p>Soyez le premier à réagir !</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block title %}

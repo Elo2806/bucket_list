@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorie;
+use App\Entity\Reaction;
 use App\Entity\Wish;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -27,6 +28,7 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create("fr_FR");
 
         //Exécute le code 200 fois pour faire des wishes
+        $wishes = [];
         for ($i = 0; $i < 200; $i++) {
             //Crée un wish vide
             $wish = new Wish();
@@ -42,6 +44,19 @@ class AppFixtures extends Fixture
 
             //Demander à Doctrine d'enregistrer mon objet
             $manager->persist($wish);
+            $wishes[] = $wish;
+        }
+        //Si on voulait aller chercher tous les wish en bdd
+        //$wishRepository = $manager->getRepository(Wish::class);
+        //$wishes = $wishRepository->findAll();
+        for ($i = 0; $i < 300; $i++){
+            $reaction = new Reaction();
+            $reaction->setUsername($faker->userName);
+            $reaction->setMessage($faker->text(100));
+            $reaction->setWish($faker->randomElement($wishes));
+            $reaction->setDateCreated($faker->dateTimeBetween($reaction->getWish()->getDateCreated()));
+
+            $manager->persist($reaction);
         }
 
 

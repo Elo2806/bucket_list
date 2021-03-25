@@ -17,6 +17,7 @@ label+ul li{
     font-family: fantasy;
     border-radius: 20px;
 }
-.pagination a {
-
+button {
+    padding: 10px;
+    border-radius: 5px;
 }

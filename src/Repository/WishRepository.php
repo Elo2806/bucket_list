@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,7 +54,6 @@ class WishRepository extends ServiceEntityRepository
             //->andWhere('W.author = Jack') On peut mettre x WHERE à la suite
             ->andWhere('W.is_published = true');
 
-
         //On peut ajouter des morceaux de requête en fonction de variables php par exemple
         $filterLikes = true; //Pour simuler une case cochée par le user par exemple
         if ($filterLikes){
@@ -70,6 +70,11 @@ class WishRepository extends ServiceEntityRepository
         $totalResultCount = $countQuery->getSingleScalarResult();
 
         $queryBuilder->select("W");
+
+        //ajoute une jointure à notre requête pour éviter les multiplps requêtes SQL par Doctrine
+        $queryBuilder->leftJoin('W.categorie', 'c')
+            ->addSelect('c');
+
         //Notre offset : à partir de quel élément on récupère
         //page1 : offset = 0
         //page2 : offset = 20
@@ -87,7 +92,10 @@ class WishRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery();
 
         //On éxécute le requête et on récup les résultats
+        //Pour corriger les éventuels pb de comptage de résultat (avec les jointures), on ferait:
+            //$paginator = new Paginator(); à la place de la ligne ci-dessous
         $results = $query->getResult();
+
 
         return ['result'=>$results, 'totalResultCount'=>$totalResultCount];
     }

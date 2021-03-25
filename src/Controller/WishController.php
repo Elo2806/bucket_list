@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Reaction;
 use App\Entity\Wish;
+use App\Form\ReacType;
 use App\Form\WishType;
 use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,11 +35,65 @@ class WishController extends AbstractController
     /**
      * @Route ("/wishes/detail/{id}", name="wish_detail")
      */
-    public function detail($id, WishRepository $wishRepository){
+    public function detail($id, WishRepository $wishRepository, EntityManagerInterface $entityManager){
 
         //requête à la BDD pour aller chercher les infos de ce wish dont l'id est dans l'url
         $wish = $wishRepository->find($id);
-        return $this->render('wish/detail.html.twig', ["wish"=>$wish]);
+        //$reacForm = $this->reagir($wish);
+
+        $reaction = new Reaction();
+        //Créer une instance de la classe formulaire et y associer $reaction
+        $reacForm = $this->createForm(ReacType::class, $reaction);
+        //Injecter les données du form dans $reaction
+        $request = new Request();
+        $reacForm->handleRequest($request);
+
+        //Si le form est soumis et valide...
+        if ($reacForm->isSubmitted() && $reacForm->isValid()) {
+            //Hydratation des propriétés non remplies
+            $reaction->setDateCreated(new \DateTime());
+            $reaction->setWish($wish);
+
+            //Sauvegarde
+            $entityManager->persist($reaction);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Réaction enregistrée');
+
+            //Redirection
+            return $this->redirectToRoute("wish_detail", ['id' => $id]);
+        }
+
+        return $this->render('wish/detail.html.twig', [
+                        "wish"=>$wish,
+                        "reacForm"=>$reacForm->createView()
+                        ]);
+    }
+
+
+    public function reagir($wish){
+        $reaction = new Reaction();
+        //Créer une instance de la classe formulaire et y associer $wish
+        $reacForm = $this->createForm(ReacType::class, $reaction);
+        //Injecter les données du form dans $reaction
+        $request = new Request();
+        $reacForm->handleRequest($request);
+
+        //Si le form est soumis et valide...
+        if ($reacForm->isSubmitted() && $reacForm->isValid()){
+            //Hydratation des propriétés non remplies
+            $reaction->setDateCreated(new \DateTime());
+            $reaction->setWish($wish);
+
+            //Sauvegarde
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($reaction);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Réaction enregistrée');
+        }
+            return $reacForm;
+
     }
 
     /**
@@ -71,7 +127,7 @@ class WishController extends AbstractController
 
         }
 
-        return $this->render("create.html.twig", [
+        return $this->render("wish/create.html.twig", [
             //Passe l'instance à twig pour l'affichage
             'wishForm' => $wishForm->createView()
         ]);
