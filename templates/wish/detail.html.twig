@@ -10,7 +10,7 @@
     {% endif %}
     <br>
     <section>
-        <h3>Donner votre réaction/avis/commentaire :</h3>
+        <h3>Partagez votre réaction/avis/commentaire :</h3>
         {{ form_start(reacForm) }}
             {{ form_widget(reacForm) }}
             <br>
@@ -20,7 +20,7 @@
     </section>
     <br>
     <section>
-        <h3>Liste des commentaires sur ce souhait :</h3>
+        <h4>Liste des commentaires sur ce souhait :</h4>
         <br>
 
         {% for reaction in wish.reactions %}

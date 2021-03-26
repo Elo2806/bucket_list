@@ -44,7 +44,9 @@ class WishController extends AbstractController
         //$reacForm = $this->reagir($wish);
 
         $reaction = new Reaction();
-        $reaction->setUsername($this->getUser()->getUsername());
+        if ($this->getUser()){
+            $reaction->setUsername($this->getUser()->getUsername());
+        }
         //Créer une instance de la classe formulaire et y associer $reaction
         $reacForm = $this->createForm(ReacType::class, $reaction);
         //Injecter les données du form dans $reaction
@@ -104,6 +106,7 @@ class WishController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $entityManager){
         $wish = new Wish();
+        $wish->setAuthor($this->getUser()->getUsername());
 
         //Créer une instance de la classe formulaire et y associer $wish pour automatiser
         //les mises à jour des getters/setters
