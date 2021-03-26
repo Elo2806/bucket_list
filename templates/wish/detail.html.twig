@@ -9,30 +9,30 @@
         <p>{{ wish.description }}</p>
     {% endif %}
     <br>
-    <div>
-        <h2>Donner votre réaction/avis/commentaire :</h2>
+    <section>
+        <h3>Donner votre réaction/avis/commentaire :</h3>
         {{ form_start(reacForm) }}
             {{ form_widget(reacForm) }}
             <br>
             <button>Réagir !</button>
         {{ form_end(reacForm) }}
 
-    </div>
+    </section>
     <br>
-    <div>
-        <h2>Liste des commentaires sur ce souhait :</h2>
+    <section>
+        <h3>Liste des commentaires sur ce souhait :</h3>
         <br>
 
         {% for reaction in wish.reactions %}
-            <div>
+            <article>
                 <p>{{ reaction.message }}</p>
                 <p>Par {{ reaction.username }}, le {{ reaction.dateCreated|date ('d,m,Y H:i') }}</p>
-            </div>
+            </article>
             <br>
         {% else %}
             <p>Soyez le premier à réagir !</p>
         {% endfor %}
-    </div>
+    </section>
 {% endblock %}
 
 {% block title %}

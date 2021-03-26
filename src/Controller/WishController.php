@@ -8,6 +8,7 @@ use App\Form\ReacType;
 use App\Form\WishType;
 use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,6 +44,7 @@ class WishController extends AbstractController
         //$reacForm = $this->reagir($wish);
 
         $reaction = new Reaction();
+        $reaction->setUsername($this->getUser()->getUsername());
         //Créer une instance de la classe formulaire et y associer $reaction
         $reacForm = $this->createForm(ReacType::class, $reaction);
         //Injecter les données du form dans $reaction
@@ -60,7 +62,7 @@ class WishController extends AbstractController
 
             $this->addFlash('success', 'Réaction enregistrée');
 
-            //Redirection
+            //Redirection (pour vider le formulaire)
             return $this->redirectToRoute("wish_detail", ['id' => $id]);
         }
 
@@ -97,6 +99,7 @@ class WishController extends AbstractController
     } */
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route ("/wishes/create", name="wish_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager){

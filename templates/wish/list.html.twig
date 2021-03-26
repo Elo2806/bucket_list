@@ -5,13 +5,13 @@
 {% block body %}
     <h1>Tous les souhaits existants chez nous (page #{{ currentPage }}) :</h1>
 
-    <div class="content has-text-centered">
+    <div class="row">
         {% if (currentPage > 1) %}
-        <a class="button" href="{{ path('wish_list', {'page': currentPage-1}) }}">Page précédente</a>
+        <a class="col btn btn-lg btn-primary" href="{{ path('wish_list', {'page': currentPage-1}) }}">Page précédente</a>
         {% endif %}
 
         {% if ((currentPage * 20) < totalResultCount) %}
-        <a class="button" href="{{ path('wish_list', {'page': currentPage+1}) }}">Page suivante</a>
+        <a class="col btn btn-lg btn-primary" href="{{ path('wish_list', {'page': currentPage+1}) }}">Page suivante</a>
         {% endif %}
     </div>
 

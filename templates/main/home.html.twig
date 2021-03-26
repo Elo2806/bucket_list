@@ -5,7 +5,7 @@
     <section class="section">
         <div class="container">
             <h1 class="title">
-                Hello Everybody !
+                Hello {{ app.user?app.user.username:"" }}
             </h1>
             <p class="subtitle">
                 Are you ready for your <strong>BucketList</strong> ?
