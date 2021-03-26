@@ -62,6 +62,7 @@ class Wish
     private $categorie;
 
     /**
+     * @ORM\OrderBy({"date_created" = "DESC"})
      * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="wish", cascade={"remove"})
      */
     private $reactions;

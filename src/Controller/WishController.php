@@ -39,6 +39,7 @@ class WishController extends AbstractController
 
         //requête à la BDD pour aller chercher les infos de ce wish dont l'id est dans l'url
         $wish = $wishRepository->find($id);
+
         //$reacForm = $this->reagir($wish);
 
         $reaction = new Reaction();
@@ -70,7 +71,7 @@ class WishController extends AbstractController
     }
 
 
-    public function reagir($wish){
+ /*   public function reagir($wish){
         $reaction = new Reaction();
         //Créer une instance de la classe formulaire et y associer $wish
         $reacForm = $this->createForm(ReacType::class, $reaction);
@@ -93,7 +94,7 @@ class WishController extends AbstractController
         }
             return $reacForm;
 
-    }
+    } */
 
     /**
      * @Route ("/wishes/create", name="wish_create")
