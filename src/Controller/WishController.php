@@ -7,6 +7,7 @@ use App\Entity\Wish;
 use App\Form\ReacType;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Tools\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,7 +105,7 @@ class WishController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route ("/wishes/create", name="wish_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager){
+    public function create(Censurator $censurator, Request $request, EntityManagerInterface $entityManager){
         $wish = new Wish();
         $wish->setAuthor($this->getUser()->getUsername());
 
@@ -117,6 +118,10 @@ class WishController extends AbstractController
 
         //Si le formulaire est soumis...
         if ($wishForm->isSubmitted() && $wishForm->isValid()){
+            //Vérifier et modifier les injures
+            $phrasePurifiee = $censurator->purify($wish->getDescription());
+            $wish->setDescription($phrasePurifiee);
+
             //Hydrater les propriétés encore à null (qui ne sont pas dans le formulaire)
             $wish->setDateCreated(new \DateTime());
             $wish->setIsPublished(true);
