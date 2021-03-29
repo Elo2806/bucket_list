@@ -34,7 +34,7 @@
                 </span>
                 <span class="row col-3">
                     {% if (app.user) %}
-                        <a class="nav-link text-info col text-center" href="{{ path('app_logout') }}"><strong>Log out</strong></a>
+                        <a class="nav-link text-info col text-center" href="{{ path('app_logout') }}"><strong>Log out ({{ app.user.username }})</strong></a>
                     {% else %}
                         <a class="nav-link text-info col text-center" href="{{ path('app_register') }}"><strong>Register</strong></a>
                         <a class="nav-link text-info col text-center" href="{{ path('app_login') }}"><strong>Log in</strong></a>
