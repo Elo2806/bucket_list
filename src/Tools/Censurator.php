@@ -28,13 +28,13 @@ class Censurator
 
                 do {
                     $position = stripos($string, $libelle);
-                    if ($position) {
+                    if ($position !== false) {
                         $taille = mb_strlen($libelle);
                         for ($i = 1; $i < $taille - 1; $i++) {
                             $string[$position + $i] = '*';
                         }
                     }
-                } while ($position);
+                } while ($position !== false);
 
             }
         return $string;
