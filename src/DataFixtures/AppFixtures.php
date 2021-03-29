@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Categorie;
+use App\Entity\Injure;
 use App\Entity\Reaction;
 use App\Entity\Wish;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,6 +23,14 @@ class AppFixtures extends Fixture
             $categorie->setLibelle($cat);
             $manager->persist($categorie);
             $categories [] = $categorie;
+        }
+
+        //Faire la table Injure
+        $injures = ['putain', 'enfoiré', 'pute', 'enculé'];
+        foreach ($injures as $mot){
+            $injure = new Injure();
+            $injure->setLibelle($mot);
+            $manager->persist($injure);
         }
 
         //Crée notre faker pour générer de belles données aléatoires
