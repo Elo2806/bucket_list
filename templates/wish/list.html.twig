@@ -3,23 +3,30 @@
 {% block title %}Wishes{% endblock %}
 
 {% block body %}
-    <h1>Tous les souhaits existants chez nous (page #{{ currentPage }}) :</h1>
+    <h2 class="text-center">Tous les souhaits existants chez nous (page #{{ currentPage }}) :</h2>
 
     <div class="row">
+
         {% if (currentPage > 1) %}
-        <a class="col btn btn-lg btn-primary" href="{{ path('wish_list', {'page': currentPage-1}) }}">Page précédente</a>
+        <a class="col-1 my-4 btn btn-sm btn-outline-info border-primary" href="{{ path('wish_list', {'page': currentPage-1}) }}">Page précédente</a>
         {% endif %}
 
+        <span class="col"></span>
+
         {% if ((currentPage * 20) < totalResultCount) %}
-        <a class="col btn btn-lg btn-primary" href="{{ path('wish_list', {'page': currentPage+1}) }}">Page suivante</a>
+        <a class="col-1 my-4 text-center btn btn-sm btn-outline-info border-primary" href="{{ path('wish_list', {'page': currentPage+1}) }}">Page suivante</a>
         {% endif %}
     </div>
 
-    <ul>
-        {% for wish in wishes %}
-        <li><a href="{{ path('wish_detail', {id: wish.id}) }}"> {{ wish.title }} ({{ wish.categorie.libelle }}) </a></li>
-        {% else %}
-            <div>Rien à proposer !</div>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <span class="col"></span>
+        <ul class="col-10 list-group list-group-flush">
+            {% for wish in wishes %}
+            <li class="list-group-item"><a class="text-dark" style="text-decoration-line: none" href="{{ path('wish_detail', {id: wish.id}) }}"> {{ wish.title }} ({{ wish.categorie.libelle }}) </a></li>
+            {% else %}
+                <div>Rien à proposer !</div>
+            {% endfor %}
+        </ul>
+        <span class="col"></span>
+    </div>
 {% endblock %}

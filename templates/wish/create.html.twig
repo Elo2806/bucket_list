@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <h1>Ajoutez un souhait !</h1>
+    <div class="row">
+        <h1 class="text-center">Ajoutez un souhait !</h1>
 
         {# form_theme form 'foundation_5_layout.html.twig'#}
         {# ou mettre form_themes: ['bootstrap_4_layout.html.twig'] dans le fichier twig.yaml#}
-
-        {{ form_start(wishForm) }}
-            {{ form_widget(wishForm) }}
-            <br>
-            <button>Souhaiter !</button>
-        {{ form_end(wishForm) }}
+        <span class="col"></span>
+        <span class="border rounded col-8">
+            {{ form_start(wishForm) }}
+                {{ form_widget(wishForm) }}
+                <button class="my-4 text-center btn btn-sm btn-outline-info border-primary">Souhaiter !</button>
+            {{ form_end(wishForm) }}
+        </span>
+        <span class="col"></span>
     </div>
 {% endblock %}
 

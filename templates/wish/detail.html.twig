@@ -1,30 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1><strong>{{ wish.title }}</h1></strong>
-    <p>Dans la catégorie {{ wish.categorie.libelle }}</p>
+    <h1><strong>{{ wish.title }}</strong></h1>
+    <p>Catégorie {{ wish.categorie.libelle }}</p>
     <br>
     {% if wish.description %}
-        <h2>Les détails du souhait de {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}:</h2>
+        <h4>Les détails du souhait de {{ wish.author }}, le {{ wish.dateCreated|date ('d/m/Y H:i') }}:</h4>
         <p>{{ wish.description }}</p>
     {% endif %}
     <br>
-    <section>
-        <h3>Partagez votre réaction/avis/commentaire :</h3>
-        {{ form_start(reacForm) }}
-            {{ form_widget(reacForm) }}
-            <br>
-            <button>Réagir !</button>
-        {{ form_end(reacForm) }}
-
+    <section class="border rounded row my-4">
+        <div class="col-4">
+            <h5 class="text-nowrap">Partagez votre réaction/avis/commentaire :</h5>
+            {{ form_start(reacForm) }}
+                {{ form_widget(reacForm) }}
+                <button class="my-4 text-center btn btn-sm btn-outline-info border-primary">Réagir !</button>
+            {{ form_end(reacForm) }}
+        </div>
     </section>
-    <br>
+
     <section>
-        <h4>Liste des commentaires sur ce souhait :</h4>
-        <br>
+        <h4 class="mb-4">Liste des commentaires sur ce souhait :</h4>
 
         {% for reaction in wish.reactions %}
-            <article>
+            <article class="my-2">
                 <p>{{ reaction.message }}</p>
                 <p>Par {{ reaction.username }}, le {{ reaction.dateCreated|date ('d,m,Y H:i') }}</p>
             </article>

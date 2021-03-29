@@ -1,23 +1,9 @@
-main {
+.logo, main, footer {
     font-family: 'Syne Mono', monospace;
 }
-
-label{
-    display: block;
+li{
+    text-decoration: none;
 }
-
-label+ul li{
-    color: red;
-}
-
-.flash{
-    margin: 10px;
-    padding: 40px;
-    background-color: mediumspringgreen;
-    font-family: fantasy;
-    border-radius: 20px;
-}
-button {
-    padding: 10px;
-    border-radius: 5px;
+li{
+    text-decoration: none;
 }

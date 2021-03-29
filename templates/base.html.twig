@@ -17,26 +17,30 @@
 
     <body>
     <div class="container">
-        <header class="row">
-
-                <a class="col" href="{{ path('main_home') }}">
-                    <!--<img src="{{ asset('img/list-logo.png') }}">-->
+        <header class="row container">
+            <div class="row logo">
+                <a class="col-1 text-secondary" style="text-decoration-line: none" href="{{ path('main_home') }}">
+                    <img class="img-thumbnail" src="{{ asset('img/list-icon-redim.jpg') }}">
                     <h1>BucketList</h1>
                 </a>
+            </div>
+            <div class="nav row justify-content-between">
+                <span class="row col-6">
+                    <a class="nav-link col text-info text-center" href="{{ path('main_about_us') }}">About Us</a>
 
-                <a class="col" href="{{ path('main_about_us') }}">About Us</a>
+                    <a class="nav-link col text-info text-center" href="{{ path('wish_list') }}">Choix de souhaits</a>
 
-                <a class="col" href="{{ path('wish_list') }}">Choix de souhaits</a>
-
-                <a class="col" href="{{ path('wish_create') }}">Add a wish</a>
-
-                {% if (app.user) %}
-                    <a class="col" href="{{ path('app_logout') }}"><strong>Log out</strong></a>
-                {% else %}
-                    <a class="col" href="{{ path('app_register') }}"><strong>Register</strong></a>
-                    <a class="col" href="{{ path('app_login') }}">Log in</a>
-                {% endif %}
-
+                    <a class="nav-link col text-info text-center" href="{{ path('wish_create') }}">Add a wish</a>
+                </span>
+                <span class="row col-3">
+                    {% if (app.user) %}
+                        <a class="nav-link text-info col text-center" href="{{ path('app_logout') }}"><strong>Log out</strong></a>
+                    {% else %}
+                        <a class="nav-link text-info col text-center" href="{{ path('app_register') }}"><strong>Register</strong></a>
+                        <a class="nav-link text-info col text-center" href="{{ path('app_login') }}"><strong>Log in</strong></a>
+                    {% endif %}
+                </span>
+            </div>
         </header>
 
         {% for label, messages in app.flashes %}
@@ -55,7 +59,7 @@
             </div>
         </main>
         <footer>
-            <div class="row">
+            <div class="row text-center">
                 <p>
                     &copy;<strong>BucketList</strong> {{'now'|date('Y') }}
                 </p>
