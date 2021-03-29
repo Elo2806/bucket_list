@@ -38,7 +38,7 @@ class WishController extends AbstractController
     /**
      * @Route ("/wishes/detail/{id}", name="wish_detail")
      */
-    public function detail($id, Request $request, WishRepository $wishRepository, EntityManagerInterface $entityManager){
+    public function detail($id, Censurator $censurator, Request $request, WishRepository $wishRepository, EntityManagerInterface $entityManager){
 
         //requête à la BDD pour aller chercher les infos de ce wish dont l'id est dans l'url
         $wish = $wishRepository->find($id);
@@ -56,6 +56,10 @@ class WishController extends AbstractController
 
         //Si le form est soumis et valide...
         if ($reacForm->isSubmitted() && $reacForm->isValid()) {
+            //Vérifier le contenu
+            $commentairePurifie = $censurator->purify($reaction->getMessage());
+            $reaction->setMessage($commentairePurifie);
+
             //Hydratation des propriétés non remplies
             $reaction->setDateCreated(new \DateTime());
             $reaction->setWish($wish);
@@ -106,7 +110,7 @@ class WishController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route ("/wishes/create", name="wish_create")
      */
-    public function create(Censurator $censurator, InjureRepository $injureRepository, Request $request, EntityManagerInterface $entityManager){
+    public function create(Censurator $censurator, Request $request, EntityManagerInterface $entityManager){
         $wish = new Wish();
         $wish->setAuthor($this->getUser()->getUsername());
 
@@ -120,7 +124,7 @@ class WishController extends AbstractController
         //Si le formulaire est soumis...
         if ($wishForm->isSubmitted() && $wishForm->isValid()){
             //Vérifier et modifier les injures
-            $phrasePurifiee = $censurator->purify($wish->getDescription(), $injureRepository);
+            $phrasePurifiee = $censurator->purify($wish->getDescription());
             $wish->setDescription($phrasePurifiee);
 
             //Hydrater les propriétés encore à null (qui ne sont pas dans le formulaire)

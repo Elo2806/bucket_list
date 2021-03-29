@@ -9,29 +9,34 @@ use App\Repository\InjureRepository;
 class Censurator
 {
 
-    private InjureRepository $injureRepository;
+    private $injureRepository;
 
-    public function __constrct(InjureRepository $injureRepository){
+    public function __construct(InjureRepository $injureRepository){
 
         $this->injureRepository = $injureRepository;
     }
 
-    public function purify(string $string, InjureRepository $injureRepository):string{
+    public function purify(string $string): string{
 
         //$listInjures = ['putain', 'enfoiré', 'pute', 'enculé'];
-        $listInjures = $injureRepository->findAll();
+        $listInjures = $this->injureRepository->findAll();
 
-        foreach ($listInjures as $injure){
-            $libelle = $injure->getLibelle();
-            $position = stripos($string, $libelle);
-            if ($position) {
-                $taille = strlen($libelle);
-                for ($i = 1; $i < $taille-1; $i++) {
-                   $string[$position + $i] = '*';
-                }
+        //On aurait pû faire
+        // return str_ireplace($listInjures, '****', $string);
+            foreach ($listInjures as $injure) {
+                $libelle = $injure->getLibelle();
+
+                do {
+                    $position = stripos($string, $libelle);
+                    if ($position) {
+                        $taille = mb_strlen($libelle);
+                        for ($i = 1; $i < $taille - 1; $i++) {
+                            $string[$position + $i] = '*';
+                        }
+                    }
+                } while ($position);
+
             }
-        }
-
         return $string;
     }
 
