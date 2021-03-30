@@ -41,6 +41,7 @@ class RegistrationController extends AbstractController
                 $entityManager->flush();
                 // do anything else you need here, like send an email
 
+                //Connexion automatique :
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $user,
                     $request,

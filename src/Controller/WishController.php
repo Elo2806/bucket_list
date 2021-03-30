@@ -124,6 +124,9 @@ class WishController extends AbstractController
         //Si le formulaire est soumis...
         if ($wishForm->isSubmitted() && $wishForm->isValid()){
             //Vérifier et modifier les injures
+            $phrasePurifiee = $censurator->purify($wish->getTitle());
+            $wish->setTitle($phrasePurifiee);
+
             $phrasePurifiee = $censurator->purify($wish->getDescription());
             $wish->setDescription($phrasePurifiee);
 
