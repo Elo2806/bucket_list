@@ -22,7 +22,7 @@ class WishRepository extends ServiceEntityRepository
 
     public function findWishList(int $page = 1): ?array
     {
-    /**    //Le DQL ressemble bcp au SQL mais fait des requêtes à nos entités plutôt qu'à des tables
+ /*      //Le DQL ressemble bcp au SQL mais fait des requêtes à nos entités plutôt qu'à des tables
         //On fait un alias w de l'entité Wish. On veut récup la totalité (avec les propriétés)
         $dql = "SELECT w 
                 FROM App\Entity\Wish w
@@ -35,24 +35,31 @@ class WishRepository extends ServiceEntityRepository
         //On crée le requête Doctrine
         $query = $entityManager->createQuery($dql);
 
-        //Limiter le nombre de résultats
-        $query->setMaxResults(100);
+        //Limiter le nombre de résultats (équivalent du LIMIT en sql)
+        $query->setMaxResults(100);  // Le LIMIT n'existe pas en DQL
 
         //Remplacer le paramètre mis dans la requête
         $query->setParameter(':likesCount', 100);
 
         //On éxécute le requête et on récup les résultats
         $results = $query->getResult();
-
 */
 
-        //En query builder
+        //En query builder (comme on appelle du WishRepo, il sait que c'est l'entité Wish)
         $queryBuilder = $this->createQueryBuilder('W');
 
         //On ajoute des clauses WHERE
         $queryBuilder
             //->andWhere('W.author = Jack') On peut mettre x WHERE à la suite
             ->andWhere('W.is_published = true');
+
+/* On pourrait faire :
+        $queryBuilder
+            ->andWhere('W.is_published = true')
+            ->andWhere('W.likes > 300')
+            ->addOrderBy('W.date_created', 'DESC')
+            ->setMaxResults(20);
+*/
 
         //On peut ajouter des morceaux de requête en fonction de variables php par exemple
         $filterLikes = true; //Pour simuler une case cochée par le user par exemple
@@ -64,6 +71,7 @@ class WishRepository extends ServiceEntityRepository
 
         //modifie le qB pour sélectionner le count
         $queryBuilder->select("COUNT(W)");
+
         //On éxécute...
         $countQuery = $queryBuilder->getQuery();
         //...on veut récupérer une seule donnée

@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Injures;
+use App\Entity\Injure;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Injures|null find($id, $lockMode = null, $lockVersion = null)
- * @method Injures|null findOneBy(array $criteria, array $orderBy = null)
- * @method Injures[]    findAll()
- * @method Injures[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Injure|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Injure|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Injure[]    findAll()
+ * @method Injure[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class InjuresRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Injures::class);
+        parent::__construct($registry, Injure::class);
     }
 
     // /**

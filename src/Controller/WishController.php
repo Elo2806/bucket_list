@@ -6,7 +6,6 @@ use App\Entity\Reaction;
 use App\Entity\Wish;
 use App\Form\ReacType;
 use App\Form\WishType;
-use App\Repository\InjureRepository;
 use App\Repository\WishRepository;
 use App\Tools\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
